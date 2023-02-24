@@ -10,7 +10,7 @@ class TreeNode {
   }
 }
 
-class Tree {
+class BinaryTree {
   root: TreeNode | null
 
   constructor() {
@@ -50,4 +50,4 @@ class Tree {
   }
 }
 
-export default Tree
+export default BinaryTree

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import Tree from 'react-d3-tree'
+
 import './Graph.css'
 
-import Tree from '../../helpers/createBinaryTree'
+import BinaryTree from '../../helpers/createBinaryTree'
 import { getRandomNumber } from '../../helpers/getRandomNumber'
 
-const tree = new Tree()
+const binaryTree = new BinaryTree()
+
 
 export default function Graph() {
 	const [initialItems, setInitialItems] = useState<number[]>([])
@@ -14,5 +17,18 @@ export default function Graph() {
 		setInitialItems(items)
 	}, [])
 
-	return <div className='Graph'>Graph</div>
+	useEffect(() => {}, [initialItems])
+
+	return (
+		<div className='Graph'>
+			<Tree orientation='vertical'
+      enableLegacyTransitions
+      translate={{
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 5
+      }}
+      // data={data}
+      />
+		</div>
+	)
 }
