@@ -1,29 +1,39 @@
-class TreeNode {
+interface RawNodeDatum {
+  name: string
+  attributes?: Record<string, string | number | boolean>
+  children: RawNodeDatum[]
+}
+
+export class TreeNode {
   value: number
-  left: TreeNode | null
-  right: TreeNode | null
+  name: string
+  children: RawNodeDatum[]
+  left: TreeNode | null | undefined
+  right: TreeNode | null | undefined
 
   constructor(item: number) {
     this.value = item
-    this.left = null
+    this.name = item.toString(),
+      this.children = [],
+      this.left = null
     this.right = null
   }
 }
 
 class BinaryTree {
-  root: TreeNode | null
+  root: TreeNode | undefined
 
   constructor() {
-    this.root = null  //initial tree
+    this.root = undefined  //initial tree
   }
 
   addItem(item: number) {
     const newNode = new TreeNode(item)
-    if (this.root === null) {
+    if (this.root === undefined) {
       this.root = newNode   // initial tree root
-    } else {
-      this._addItem(this.root, newNode)  // add new node to tree
+      return
     }
+    this._addItem(this.root, newNode)  // add new node to tree
   }
 
   _addItem(currentNode: TreeNode, newNode: TreeNode) {
@@ -31,22 +41,28 @@ class BinaryTree {
     if (newNode.value < currentNode.value) {
       if (currentNode.left === null) {
         currentNode.left = newNode
+        currentNode.children = [newNode, ...currentNode.children]
       } else {
-        this._addItem(currentNode.left, newNode)
+        this._addItem(currentNode.left!, newNode)
       }
     }
 
     if (newNode.value > currentNode.value) {
       if (currentNode.right === null) {
         currentNode.right = newNode
+        currentNode.children = [...currentNode.children, newNode]
       } else {
-        this._addItem(currentNode.right, newNode)
+        this._addItem(currentNode.right!, newNode)
       }
     }
 
     if (newNode.value === currentNode.value) {
       console.log('ups! Duplicate((')
     }
+  }
+
+  getData() {
+    return this.root
   }
 }
 
