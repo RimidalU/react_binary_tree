@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { KeyboardEvent, useEffect, useState } from 'react'
 
 import { RawNodeDatum } from 'react-d3-tree/lib/types/types/common'
 
@@ -15,18 +15,26 @@ function App() {
 	const [initialItems, setInitialItems] = useState<RawNodeDatum | RawNodeDatum[] | undefined>()
 
 	useEffect(() => {
-		let randomItems = Array.from({ length: 15 }, () => getRandomNumber())
+		let randomItems = Array.from({ length: 2 }, () => getRandomNumber())
 		setItems(randomItems)
 	}, [])
 
 	useEffect(() => {
 		items.forEach((el) => binaryTree.addItem(el))
 		const newTree = binaryTree.getData()
-		setInitialItems(newTree)
+		if (newTree) {
+			setInitialItems({ ...newTree })
+		}
 	}, [items])
 
+	const handleAddItem = (event: KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === ' ') {
+			setItems((items) => [...items, getRandomNumber()])
+		}
+	}
+
 	return (
-		<main className='App'>
+		<main tabIndex={1} onKeyDown={handleAddItem} className='App'>
 			<Header />
 			<Graph initialItems={initialItems} />
 		</main>

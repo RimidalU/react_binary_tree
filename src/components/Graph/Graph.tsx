@@ -12,7 +12,7 @@ export default function Graph({ initialItems }: RowsProps) {
 	const [treeData, setTreeData] = useState<RawNodeDatum | RawNodeDatum[] | undefined>()
 	useEffect(() => {
 		setTreeData(initialItems)
-	})
+	}, [initialItems])
 
 	return (
 		<div className='Graph' id='treeWrapper'>
@@ -24,7 +24,7 @@ export default function Graph({ initialItems }: RowsProps) {
 						x: window.innerWidth / 2,
 						y: window.innerHeight / 5,
 					}}
-					data={initialItems}
+					data={treeData}
 				/>
 			)}
 		</div>
