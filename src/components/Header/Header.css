@@ -1,6 +1,8 @@
 .Header {
 	display: flex;
+	flex-direction: column;
 	padding: 20px;
-	justify-content: center;
+	gap: 5px;
+	align-items: center;
   background-color: rgb(246, 255, 240);
 }

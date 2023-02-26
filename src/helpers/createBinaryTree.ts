@@ -38,6 +38,10 @@ class BinaryTree {
 
   _addItem(currentNode: TreeNode, newNode: TreeNode) {
 
+    if (newNode.value === currentNode.value) {
+      return
+    }
+
     if (newNode.value < currentNode.value) {
       if (currentNode.left === null) {
         currentNode.left = newNode
@@ -56,9 +60,7 @@ class BinaryTree {
       }
     }
 
-    if (newNode.value === currentNode.value) {
-      console.log('ups! Duplicate((')
-    }
+
   }
 
   getData() {

@@ -15,7 +15,7 @@ function App() {
 	const [initialItems, setInitialItems] = useState<RawNodeDatum | RawNodeDatum[] | undefined>()
 
 	useEffect(() => {
-		let randomItems = Array.from({ length: 2 }, () => getRandomNumber())
+		let randomItems = Array.from({ length: 10 }, () => getRandomNumber())
 		setItems(randomItems)
 	}, [])
 
@@ -29,8 +29,16 @@ function App() {
 
 	const handleAddItem = (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === ' ') {
-			setItems((items) => [...items, getRandomNumber()])
+			setItems((items) => [...items, addUniqueItem(items)])
 		}
+	}
+
+	const addUniqueItem = (items: number[]) => {
+		let newItem = getRandomNumber()
+		if (items.includes(newItem)) {
+			addUniqueItem(items)
+		}
+		return newItem
 	}
 
 	return (
